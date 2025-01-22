@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Invoice Processor
 
 ## Overview
@@ -59,3 +60,7 @@ async function processInvoice() {
 - Ensure LM Studio is running
 - Check image quality
 - Verify Tesseract OCR installation
+=======
+# LMStudioInvoiceParser
+A modular invoice processing utility that combines OCR (Optical Character Recognition) with LM Studio for intelligent text extraction and parsing.
+>>>>>>> c67947c5eee8a895d648371ea4152dc3f0484057
