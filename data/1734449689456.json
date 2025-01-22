@@ -1,0 +1,33 @@
+{
+  "id": "1734449689456",
+  "originalFilename": "fake_invoice_blurry_5.pdf",
+  "processedDate": "2024-12-17T15:34:49.456Z",
+  "data": {
+    "invoiceNumber": null,
+    "date": "2024-12-11",
+    "totalAmount": 4150,
+    "vendorName": "Allied Construction Goods",
+    "lineItems": [
+      {
+        "description": "Scaffolding Poles",
+        "quantity": 50,
+        "unitPrice": 60,
+        "amount": 3000
+      },
+      {
+        "description": "Gravel (ton)",
+        "quantity": 20,
+        "unitPrice": 30,
+        "amount": 600
+      },
+      {
+        "description": "Paint Buckets",
+        "quantity": 25,
+        "unitPrice": 22,
+        "amount": 550
+      }
+    ],
+    "taxAmount": null,
+    "paymentTerms": null
+  }
+}

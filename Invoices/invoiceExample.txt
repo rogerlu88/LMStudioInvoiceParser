@@ -1,0 +1,32 @@
+                            INVOICE
+
+Tech Solutions Inc.
+123 Business Ave
+San Francisco, CA 94105
+(555) 123-4567
+
+Invoice #: INV-2024-001
+Date: December 16, 2024
+Due Date: January 15, 2025
+
+Bill To:
+John Smith
+456 Client Street
+San Francisco, CA 94106
+
+----------------------------------------
+Description          Qty    Rate    Amount
+----------------------------------------
+Web Development      40    $75.00   $3,000.00
+Cloud Hosting        1     $199.99  $199.99
+Technical Support    10    $50.00   $500.00
+----------------------------------------
+
+Subtotal:                         $3,699.99
+Tax (8.5%):                      $314.50
+Total:                           $4,014.49
+
+Payment Terms: Net 30
+Please make checks payable to: Tech Solutions Inc.
+
+Thank you for your business!

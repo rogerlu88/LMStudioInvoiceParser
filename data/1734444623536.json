@@ -1,0 +1,14 @@
+{
+  "id": "1734444623536",
+  "originalFilename": "fake_invoice_blurry_2.pdf",
+  "processedDate": "2024-12-17T14:10:23.536Z",
+  "data": {
+    "invoiceNumber": "6710 Date: 2024-12-13 Bill To: Mega Projects Ltd. 101 Main St, Build Town, BT 54321  Description   Quantity   Unit Price   Total  Sand (50kg bags)   100   $8.00   $800.00 Concrete Mix   40   $25.50   $1020.00 PVC Pipes   60   $15.00   $900.00 Grand Total: $2720.00  Thank you for your business!",
+    "date": "2024-12-13 Bill To: Mega Projects Ltd. 101 Main St, Build Town, BT 54321  Description   Quantity   Unit Price   Total  Sand (50kg bags)   100   $8.00   $800.00 Concrete Mix   40   $25.50   $1020.00 PVC Pipes   60   $15.00   $900.00 Grand Total: $2720.00  Thank you for your business!",
+    "totalAmount": "$8.00",
+    "vendorName": "QuickBuild Hardware Co.  789 Rapid Lane, Construction City, CC 12345 Contact: 321-654-0987 Email: info@quickbuild.com Invoice #: 6710 Date: 2024-12-13 Bill To: Mega Projects Ltd. 101 Main St, Build Town, BT 54321  Description   Quantity   Unit Price   Total  Sand (50kg bags)   100   $8.00   $800.00 Concrete Mix   40   $25.50   $1020.00 PVC Pipes   60   $15.00   $900.00 Grand Total: $2720.00  Thank you for your business!",
+    "lineItems": [],
+    "taxAmount": null,
+    "paymentTerms": null
+  }
+}

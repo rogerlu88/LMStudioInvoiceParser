@@ -1,0 +1,14 @@
+{
+  "id": "1734447896718",
+  "originalFilename": "fake_invoice_blurry_4.pdf",
+  "processedDate": "2024-12-17T15:04:56.718Z",
+  "data": {
+    "invoiceNumber": "5197 Date: 2024-12-10 Bill To: Greenfield Constructions 89 Pine Drive, Suburbia, SB 23456  Description   Quantity   Unit Price   Total  Glass Panels   20   $110.00   $2200.00 Aluminum Sheets   15   $95.50   $1432.50 Nails (box)   100   $3.00   $300.00 Grand Total: $3932.50  Thank you for your business!",
+    "date": "2024-12-10 Bill To: Greenfield Constructions 89 Pine Drive, Suburbia, SB 23456  Description   Quantity   Unit Price   Total  Glass Panels   20   $110.00   $2200.00 Aluminum Sheets   15   $95.50   $1432.50 Nails (box)   100   $3.00   $300.00 Grand Total: $3932.50  Thank you for your business!",
+    "totalAmount": "$110.00",
+    "vendorName": "Builders Warehouse  145 Industrial Road, Fabrication City, FC 55555 Contact: 555-555-5555 Email: warehouse@builders.com Invoice #: 5197 Date: 2024-12-10 Bill To: Greenfield Constructions 89 Pine Drive, Suburbia, SB 23456  Description   Quantity   Unit Price   Total  Glass Panels   20   $110.00   $2200.00 Aluminum Sheets   15   $95.50   $1432.50 Nails (box)   100   $3.00   $300.00 Grand Total: $3932.50  Thank you for your business!",
+    "lineItems": [],
+    "taxAmount": null,
+    "paymentTerms": null
+  }
+}

@@ -1,0 +1,55 @@
+{
+  "id": "1734420861677",
+  "originalFilename": "invoiceExample.png",
+  "processedDate": "2024-12-17T07:34:21.678Z",
+  "data": {
+    "invoiceNumber": null,
+    "date": null,
+    "totalAmount": null,
+    "vendorName": "Invoice Joucompiny",
+    "lineItems": [
+      {
+        "description": "Your Client 26/3/2021 INV-10012",
+        "amount": "1,699.48"
+      },
+      {
+        "description": "Services $55.00 10",
+        "amount": "550.00"
+      },
+      {
+        "description": "Consulting $75.00 15",
+        "amount": "1125.00"
+      },
+      {
+        "description": "Materials $123.39 1",
+        "amount": "123.39"
+      },
+      {
+        "description": "Subtotal",
+        "amount": "1,798.39"
+      },
+      {
+        "description": "Discount",
+        "amount": "-179.84"
+      },
+      {
+        "description": "Tax",
+        "amount": "+80.93"
+      },
+      {
+        "description": "Total",
+        "amount": "1,699.48"
+      },
+      {
+        "description": "Deposit Requested",
+        "amount": "169.95"
+      },
+      {
+        "description": "Deposit Due",
+        "amount": "169.95"
+      }
+    ],
+    "taxAmount": "80.93",
+    "paymentTerms": null
+  }
+}

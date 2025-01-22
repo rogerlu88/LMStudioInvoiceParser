@@ -1,0 +1,34 @@
+{
+  "invoiceNumber": "INV-2024-001",
+  "date": "December 16, 2024",
+  "totalAmount": "$4,014.49",
+  "vendorName": "Tech Solutions Inc.",
+  "lineItems": [
+    {
+      "description": "Web Development 40 $75.00",
+      "amount": "3,000.00"
+    },
+    {
+      "description": "Cloud Hosting 1 $199.99",
+      "amount": "199.99"
+    },
+    {
+      "description": "Technical Support 10 $50.00",
+      "amount": "500.00"
+    },
+    {
+      "description": "Subtotal:",
+      "amount": "3,699.99"
+    },
+    {
+      "description": "Tax (8.5%):",
+      "amount": "314.50"
+    },
+    {
+      "description": "Total:",
+      "amount": "4,014.49"
+    }
+  ],
+  "taxAmount": "314.50",
+  "paymentTerms": "Net 30"
+}

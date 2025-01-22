@@ -1,0 +1,14 @@
+{
+  "id": "1734444613560",
+  "originalFilename": "fake_invoice_1-1.pdf",
+  "processedDate": "2024-12-17T14:10:13.560Z",
+  "data": {
+    "invoiceNumber": null,
+    "date": "2024-12-13  Bill To:  XYZ Construction Co. 456 Project Way, Development Town, DT 67890  Description   Quantity   Unit Price   Total  Cement Bags   50   $12.50   $625.00 Steel Rods   30   $45.00   $1350.00 Bricks (1000 pcs)   10   $250.00   $2500.00  Grand Total: $4475.00  Payment due within 15 days. Thank you for your business!",
+    "totalAmount": "$12.50",
+    "vendorName": "ABC Construction Supplies  123 Builder Lane, Construct City, CT 56789 Contact: 123-456-7890 | Email: contact@abcconstruct.com  Invoice Number: 8211 Date: 2024-12-13  Bill To:  XYZ Construction Co. 456 Project Way, Development Town, DT 67890  Description   Quantity   Unit Price   Total  Cement Bags   50   $12.50   $625.00 Steel Rods   30   $45.00   $1350.00 Bricks (1000 pcs)   10   $250.00   $2500.00  Grand Total: $4475.00  Payment due within 15 days. Thank you for your business!",
+    "lineItems": [],
+    "taxAmount": null,
+    "paymentTerms": null
+  }
+}

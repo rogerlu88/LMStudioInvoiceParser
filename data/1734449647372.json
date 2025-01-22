@@ -1,0 +1,33 @@
+{
+  "id": "1734449647372",
+  "originalFilename": "fake_invoice_blurry_4.pdf",
+  "processedDate": "2024-12-17T15:34:07.372Z",
+  "data": {
+    "invoiceNumber": null,
+    "date": "2024-12-10",
+    "totalAmount": 3932.5,
+    "vendorName": "Builders Warehouse",
+    "lineItems": [
+      {
+        "description": "Glass Panels",
+        "quantity": 20,
+        "unitPrice": 110,
+        "amount": 2200
+      },
+      {
+        "description": "Aluminum Sheets",
+        "quantity": 15,
+        "unitPrice": 95.5,
+        "amount": 1432.5
+      },
+      {
+        "description": "Nails (box)",
+        "quantity": 100,
+        "unitPrice": 3,
+        "amount": 300
+      }
+    ],
+    "taxAmount": null,
+    "paymentTerms": null
+  }
+}

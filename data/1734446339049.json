@@ -1,0 +1,14 @@
+{
+  "id": "1734446339049",
+  "originalFilename": "fake_invoice_blurry_3.pdf",
+  "processedDate": "2024-12-17T14:38:59.050Z",
+  "data": {
+    "invoiceNumber": "2356 Date: 2024-12-12 Bill To: Urban Developers Co. 56 Elm Street, Cityscape, SC 89012  Description   Quantity   Unit Price   Total  Rebar Steel   50   $85.00   $4250.00 Wooden Planks   30   $12.00   $360.00 Floor Tiles   20   $45.00   $900.00 Grand Total: $5510.00  Thank you for your business!",
+    "date": "2024-12-12 Bill To: Urban Developers Co. 56 Elm Street, Cityscape, SC 89012  Description   Quantity   Unit Price   Total  Rebar Steel   50   $85.00   $4250.00 Wooden Planks   30   $12.00   $360.00 Floor Tiles   20   $45.00   $900.00 Grand Total: $5510.00  Thank you for your business!",
+    "totalAmount": "$85.00",
+    "vendorName": "ProConstruct Materials  222 Bridge Ave, Engineering City, EC 77777 Contact: 987-123-4567 Email: sales@proconstruct.com Invoice #: 2356 Date: 2024-12-12 Bill To: Urban Developers Co. 56 Elm Street, Cityscape, SC 89012  Description   Quantity   Unit Price   Total  Rebar Steel   50   $85.00   $4250.00 Wooden Planks   30   $12.00   $360.00 Floor Tiles   20   $45.00   $900.00 Grand Total: $5510.00  Thank you for your business!",
+    "lineItems": [],
+    "taxAmount": null,
+    "paymentTerms": null
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "id": "1734448099481",
+  "originalFilename": "fake_invoice_blurry_5.pdf",
+  "processedDate": "2024-12-17T15:08:19.481Z",
+  "data": {
+    "invoiceNumber": "5721 Date: 2024-12-11 Bill To: Skyline Construction Ltd. 789 Horizon Road, Uptown, UT 67890  Description   Quantity   Unit Price   Total  Scaffolding Poles   50   $60.00   $3000.00 Gravel (ton)   20   $30.00   $600.00 Paint Buckets   25   $22.00   $550.00 Grand Total: $4150.00  Thank you for your business!",
+    "date": "2024-12-11 Bill To: Skyline Construction Ltd. 789 Horizon Road, Uptown, UT 67890  Description   Quantity   Unit Price   Total  Scaffolding Poles   50   $60.00   $3000.00 Gravel (ton)   20   $30.00   $600.00 Paint Buckets   25   $22.00   $550.00 Grand Total: $4150.00  Thank you for your business!",
+    "totalAmount": "$60.00",
+    "vendorName": "Allied Construction Goods  673 Builders Lane, Structural City, ST 98765 Contact: 444-444-4444 Email: contact@alliedgoods.com Invoice #: 5721 Date: 2024-12-11 Bill To: Skyline Construction Ltd. 789 Horizon Road, Uptown, UT 67890  Description   Quantity   Unit Price   Total  Scaffolding Poles   50   $60.00   $3000.00 Gravel (ton)   20   $30.00   $600.00 Paint Buckets   25   $22.00   $550.00 Grand Total: $4150.00  Thank you for your business!",
+    "lineItems": [],
+    "taxAmount": null,
+    "paymentTerms": null
+  }
+}

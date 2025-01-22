@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice Processor</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+            height: 100vh;
+            box-sizing: border-box;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            height: calc(100vh - 40px);
+            display: flex;
+            flex-direction: column;
+        }
+        .header {
+            margin-bottom: 20px;
+        }
+        .content {
+            display: flex;
+            flex: 1;
+            gap: 20px;
+            min-height: 0; /* Important for nested scrolling */
+        }
+        .left-panel {
+            flex: 4;
+            display: flex;
+            flex-direction: column;
+            min-height: 0; /* Important for nested scrolling */
+        }
+        .right-panel {
+            flex: 6;
+            display: flex;
+            flex-direction: column;
+            min-height: 0; /* Important for nested scrolling */
+        }
+        .upload-form {
+            margin-bottom: 20px;
+        }
+        .file-input {
+            padding: 10px;
+            border: 2px dashed #ccc;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .submit-button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+        .submit-button:hover {
+            background-color: #0056b3;
+        }
+        .submit-button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+        .result {
+            flex: 1;
+            overflow: auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: #f8f9fa;
+            display: none;
+            min-height: 0; /* Important for nested scrolling */
+        }
+        .error {
+            color: red;
+            margin-top: 10px;
+            display: none;
+        }
+        .loading {
+            display: none;
+            text-align: center;
+            margin: 20px 0;
+        }
+        .loading::after {
+            content: "Processing...";
+            animation: dots 1.5s steps(5, end) infinite;
+        }
+        @keyframes dots {
+            0%, 20% { content: "Processing."; }
+            40% { content: "Processing.."; }
+            60% { content: "Processing..."; }
+            80% { content: "Processing...."; }
+            100% { content: "Processing....."; }
+        }
+        .preview-container {
+            flex: 1;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 10px;
+            margin-top: 20px;
+            overflow: auto;
+            background: white;
+            min-height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .preview-container img {
+            max-width: 100%;
+            height: auto;
+        }
+        .preview-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        .preview-container p {
+            color: #666;
+            text-align: center;
+        }
+        pre {
+            margin: 0;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        .panel-title {
+            margin: 0 0 10px 0;
+            font-size: 1.2em;
+            color: #333;
+        }
+        .nav-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .button:hover {
+            background-color: #0056b3;
+        }
+        .button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+        .navigation-controls {
+            margin: 20px 0;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .navigation-controls button {
+            padding: 8px 15px;
+            border: 1px solid #ddd;
+            background-color: #f8f9fa;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .navigation-controls button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .navigation-controls button:hover:not(:disabled) {
+            background-color: #e9ecef;
+        }
+
+        #navigationStatus {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .current-file {
+            margin: 10px 0;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .clear-button {
+            margin-left: auto;
+            background-color: #dc3545 !important;
+            color: white;
+        }
+
+        .clear-button:hover {
+            background-color: #c82333 !important;
+        }
+    </style>
+    <link rel="stylesheet" href="/css/hamburger.css">
+</head>
+<body>
+    <!-- Hamburger Menu -->
+    <div class="hamburger-menu">
+        <div class="hamburger-icon"></div>
+        <div class="hamburger-icon"></div>
+        <div class="hamburger-icon"></div>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <span class="close-btn">&times;</span>
+        <nav class="sidebar-nav">
+            <a href="#" class="menu-link">Menu</a>
+            <a href="#" class="deployment-link">Deployment</a>
+            <a href="#" class="chatgpt-link">ChatGPT</a>
+            <a href="#" class="about-link">About</a>
+        </nav>
+        
+        <!-- Menu Content -->
+        <div class="menu-content">
+            <h2>Server Management Guide</h2>
+            
+            <h3>If the server is already running on port 3000:</h3>
+            <p>Here's how to stop any existing server process and then restart it:</p>
+            
+            <div class="code-block">
+                <p>1. Find the process ID:</p>
+                $ lsof -ti :3000
+            </div>
+            
+            <div class="code-block">
+                <p>2. Kill the process:</p>
+                $ kill -9 66561
+            </div>
+            
+            <div class="code-block">
+                <p>3. Start the server again:</p>
+                $ node src/server.js
+            </div>
+            
+            <h3>Alternative Methods to Stop the Server:</h3>
+            <ul>
+                <li>Press Ctrl+C in the terminal</li>
+                <li>Use the following command (though it may show some errors):</li>
+            </ul>
+            
+            <div class="code-block">
+                $ lsof -ti :3000 | xargs kill -9
+            </div>
+            
+            <p>If the above shows errors, use this simpler alternative:</p>
+            
+            <div class="code-block">
+                $ pkill -f "node src/server.js"
+            </div>
+
+            <h3>Saved Files Location and Format</h3>
+            <p>When you click "Save All Changes", the processed invoice data is saved in the following locations:</p>
+            
+            <div class="code-block">
+                Directory: /Users/rogerlu/Documents/6-invoice-processor/data/
+                Format: JSON files named with timestamp (e.g., 1734421065631.json)
+            </div>
+
+            <p>Each saved JSON file contains:</p>
+            <ul>
+                <li><strong>id:</strong> Unique timestamp identifier</li>
+                <li><strong>originalFilename:</strong> Name of the uploaded invoice file</li>
+                <li><strong>processedDate:</strong> Date and time of processing</li>
+                <li><strong>data:</strong> Extracted invoice information including:
+                    <ul>
+                        <li>Invoice number</li>
+                        <li>Date</li>
+                        <li>Total amount</li>
+                        <li>Vendor name</li>
+                        <li>Line items</li>
+                        <li>Tax amount</li>
+                        <li>Payment terms</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <p>Example JSON structure:</p>
+            <div class="code-block">
+{
+    "id": "1734421065631",
+    "originalFilename": "invoice.pdf",
+    "processedDate": "2024-12-17T07:37:45.631Z",
+    "data": {
+        "invoiceNumber": "INV-2024-001",
+        "date": "December 16, 2024",
+        "totalAmount": "$4,014.49",
+        "vendorName": "Tech Solutions Inc.",
+        "lineItems": [
+            {
+                "description": "Web Development",
+                "amount": "3,000.00"
+            }
+        ],
+        "taxAmount": "314.50",
+        "paymentTerms": "Net 30"
+    }
+}
+            </div>
+            
+            <h3>Using the Application:</h3>
+            <ol>
+                <li>Click the three horizontal lines in the top-right corner</li>
+                <li>Select "Menu" or "About" from the sidebar</li>
+                <li>Read the information provided</li>
+                <li>Close the sidebar by clicking the X button or clicking outside the sidebar</li>
+            </ol>
+        </div>
+        
+        <!-- Deployment Content -->
+        <div class="deployment-content">
+            <h2>Cloud Deployment Guide</h2>
+            
+            <h3>1. Cloud VM Deployment</h3>
+            <ul>
+                <li>Set up a VM on AWS EC2, Google Cloud Compute Engine, or Azure VM</li>
+                <li>Install LMStudio on the VM</li>
+                <li>Configure networking to allow your application to communicate with LMStudio</li>
+                <li>Ensure the VM has sufficient GPU resources if needed</li>
+            </ul>
+
+            <h3>2. Docker Container</h3>
+            <p>Package LMStudio in a Docker container and deploy to container services like:</p>
+            <ul>
+                <li>AWS ECS (Elastic Container Service)</li>
+                <li>Google Cloud Run</li>
+                <li>Azure Container Instances</li>
+                <li>Use container orchestration with Kubernetes if needed</li>
+            </ul>
+
+            <h3>3. Alternative Cloud LLM Services</h3>
+            <p>Instead of deploying LMStudio itself, you could also consider:</p>
+            <ul>
+                <li>OpenAI API</li>
+                <li>Google Vertex AI</li>
+                <li>AWS Bedrock</li>
+                <li>Anthropic Claude</li>
+                <li>Hugging Face Inference API</li>
+            </ul>
+
+            <h3>4. Configuration Updates</h3>
+            <p>To modify your current codebase for cloud deployment:</p>
+            <div class="code-block">
+                <h4>Update the configuration:</h4>
+                • Change the LMStudio URL to point to your cloud instance
+                • Add proper authentication
+                • Configure CORS settings
+
+                <h4>Consider adding:</h4>
+                • Load balancing
+                • Health checks
+                • Monitoring
+                • Auto-scaling capabilities
+
+                <h4>Security considerations:</h4>
+                • Implement API key authentication
+                • Set up SSL/TLS encryption
+                • Configure proper firewall rules
+                • Implement rate limiting
+            </div>
+        </div>
+
+        <!-- ChatGPT Content -->
+        <div class="chatgpt-content">
+            <h2>Using ChatGPT Vision API</h2>
+            
+            <h3>Implementation Time Estimate: 4-6 Hours</h3>
+            <div class="code-block">
+                <p>Breakdown:</p>
+                • OpenAI Setup: 30 minutes
+                • API Integration: 2 hours
+                • Testing & Debugging: 2 hours
+                • Documentation: 30 minutes
+                • Buffer for issues: 1 hour
+            </div>
+
+            <h3>1. Get OpenAI API Key</h3>
+            <ul>
+                <li>Sign up at platform.openai.com</li>
+                <li>Generate API key</li>
+                <li>Store it in your .env file</li>
+            </ul>
+            <div class="code-block">
+OPENAI_API_KEY=your_key_here</div>
+
+            <h3>2. Example API Implementation</h3>
+            <div class="code-block">
+async function processInvoice(base64Image) {
+    const response = await fetch('https://api.openai.com/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`
+        },
+        body: JSON.stringify({
+            model: "gpt-4-vision-preview",
+            messages: [
+                {
+                    role: "user",
+                    content: [
+                        {
+                            type: "text",
+                            text: "Extract the following information from this invoice: invoice number, date, total amount, vendor name, line items, tax amount, and payment terms. Return the data in JSON format."
+                        },
+                        {
+                            type: "image_url",
+                            image_url: {
+                                url: `data:image/jpeg;base64,${base64Image}`
+                            }
+                        }
+                    ]
+                }
+            ],
+            max_tokens: 4096
+        })
+    });
+
+    const data = await response.json();
+    return JSON.parse(data.choices[0].message.content);
+}</div>
+
+            <h3>3. Expected Response Format</h3>
+            <div class="code-block">
+{
+    "invoiceNumber": "INV-2024-001",
+    "date": "December 16, 2024",
+    "totalAmount": "$4,014.49",
+    "vendorName": "Tech Solutions Inc.",
+    "lineItems": [
+        {
+            "description": "Web Development",
+            "amount": "3,000.00"
+        }
+    ],
+    "taxAmount": "314.50",
+    "paymentTerms": "Net 30"
+}</div>
+
+            <h3>4. Advantages</h3>
+            <ul>
+                <li>No local OCR needed</li>
+                <li>Better accuracy</li>
+                <li>Handles various invoice formats</li>
+                <li>Simpler deployment</li>
+                <li>No local model management</li>
+            </ul>
+
+            <h3>5. Considerations</h3>
+            <ul>
+                <li>Costs: $0.01/1K tokens for GPT-4V</li>
+                <li>Internet connection required</li>
+                <li>API rate limits</li>
+                <li>Response time: ~2-3 seconds</li>
+                <li>Data privacy concerns</li>
+            </ul>
+        </div>
+
+        <!-- About Content -->
+        <div class="about-content">
+            <h2>About</h2>
+            <p>This invoice processing software uses LM Studio as its language model. This is evidenced by several key findings:</p>
+            
+            <p>In the src/index.js file, there's a reference to LMStudioProcessor being used to process invoice text:</p>
+            <div class="code-block">
+                const structuredData = await LMStudioProcessor.processInvoiceText(ocrText, config.lmStudio);
+            </div>
+            
+            <p>The README.md file explicitly mentions LM Studio as a prerequisite:</p>
+            <div class="code-block">
+                Prerequisites:<br>
+                - Node.js (v14+ recommended)<br>
+                - LM Studio running locally<br>
+                - Tesseract OCR installed
+            </div>
+            
+            <p>The README also includes a configuration note: "Adjust LM Studio URL in lm-studio.js if needed"</p>
+            
+            <p>LM Studio is a local large language model runner that allows you to run various open-source language models on your local machine. The software appears to be designed to work with LM Studio running locally rather than calling out to cloud-based language models like GPT-3 or others.</p>
+            
+            <p>The architecture shows that the software first uses OCR (Optical Character Recognition) to extract text from invoices, and then uses LM Studio to process and structure that text into meaningful invoice data.</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <h1>Invoice Processor</h1>
+            <p>Upload an invoice in PDF, JPEG, or PNG format to extract its information.</p>
+        </div>
+        
+        <div class="content">
+            <div class="left-panel">
+                <h2 class="panel-title">Extracted Information</h2>
+                <div id="loading" style="display: none;">
+                    <div class="spinner"></div>
+                    <p>Processing invoice...</p>
+                </div>
+                <div id="error" class="error" style="display: none;"></div>
+                <div id="result" style="display: none;">
+                    <h2>Processed Invoice Data</h2>
+                    <pre id="resultContent"></pre>
+                    <button id="nextButton" onclick="goToEditPage()" style="display: none;">Next</button>
+                </div>
+            </div>
+
+            <div class="right-panel">
+                <h2 class="panel-title">Invoice Preview</h2>
+                <form id="uploadForm" enctype="multipart/form-data">
+                    <div class="upload-container">
+                        <label for="invoice" class="file-label">Choose Invoice File</label>
+                        <input type="file" id="invoice" name="invoice" accept=".pdf,.jpg,.jpeg,.png" required>
+                        <button type="submit">Process Invoice</button>
+                    </div>
+                </form>
+                <div id="preview" class="preview-container"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const form = document.getElementById('uploadForm');
+        const loading = document.getElementById('loading');
+        const error = document.getElementById('error');
+        const result = document.getElementById('result');
+        const resultContent = document.getElementById('resultContent');
+        const preview = document.getElementById('preview');
+        const fileInput = document.getElementById('invoice');
+        const nextButton = document.getElementById('nextButton');
+
+        let currentInvoiceId = null;
+        let processedData = null;
+
+        fileInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (!file) {
+                preview.innerHTML = '<p>Select an invoice file to preview</p>';
+                return;
+            }
+
+            // Clear previous preview
+            preview.innerHTML = '';
+
+            if (file.type === 'application/pdf') {
+                // Create object URL for PDF
+                const objectUrl = URL.createObjectURL(file);
+                const iframe = document.createElement('iframe');
+                iframe.src = objectUrl;
+                iframe.style.width = '100%';
+                iframe.style.height = '500px';
+                preview.appendChild(iframe);
+            } else if (file.type.startsWith('image/')) {
+                // Create image preview
+                const img = document.createElement('img');
+                img.src = URL.createObjectURL(file);
+                img.style.maxWidth = '100%';
+                img.style.height = 'auto';
+                preview.appendChild(img);
+            }
+        });
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const formData = new FormData(form);
+            const file = formData.get('invoice');
+            
+            if (!file) {
+                showError('Please select a file');
+                return;
+            }
+
+            try {
+                error.style.display = 'none';
+                result.style.display = 'none';
+                nextButton.style.display = 'none';
+                loading.style.display = 'block';
+
+                const response = await fetch('http://localhost:3001/upload', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const data = await response.json();
+
+                if (!data.success) {
+                    throw new Error(data.error || 'Failed to process invoice');
+                }
+
+                console.log('Upload response:', data);
+
+                // Store the processed data
+                processedData = data.data;
+                currentInvoiceId = Date.now().toString();
+                
+                // Find the uploaded file in the directory
+                const uploadedFile = data.fileName;
+                if (!uploadedFile) {
+                    throw new Error('No filename returned from server');
+                }
+
+                // Store the full filename including timestamp
+                localStorage.setItem('originalFile', uploadedFile);
+                localStorage.setItem('invoiceData', JSON.stringify(processedData));
+
+                // Display the result
+                resultContent.textContent = JSON.stringify(processedData, null, 2);
+                result.style.display = 'block';
+                nextButton.style.display = 'block';
+            } catch (error) {
+                console.error('Upload error:', error);
+                showError(error.message);
+            } finally {
+                loading.style.display = 'none';
+            }
+        });
+
+        function showError(message) {
+            error.textContent = message;
+            error.style.display = 'block';
+            result.style.display = 'none';
+            nextButton.style.display = 'none';
+        }
+
+        function goToEditPage() {
+            const originalFile = localStorage.getItem('originalFile');
+            if (!originalFile) {
+                showError('No file selected');
+                return;
+            }
+            console.log('Navigating to edit page with file:', originalFile);
+            window.location.href = `/edit.html?file=${encodeURIComponent(originalFile)}`;
+        }
+    </script>
+    <script src="/js/hamburger.js"></script>
+</body>
+</html>
